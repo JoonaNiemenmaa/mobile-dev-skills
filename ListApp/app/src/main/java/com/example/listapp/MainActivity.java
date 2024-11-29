@@ -2,7 +2,9 @@ package com.example.listapp;
 
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.MotionEvent;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         Resources res = getApplicationContext().getResources();
 
-        String[] names = res.getStringArray(R.array.Items);
+        String[] names = res.getStringArray(R.array.Names);
         String[] prices = res.getStringArray(R.array.Prices);
         String[] descriptions = res.getStringArray(R.array.Descriptions);
 
