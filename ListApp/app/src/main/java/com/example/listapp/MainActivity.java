@@ -1,12 +1,11 @@
 package com.example.listapp;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,5 +13,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Resources res = getApplicationContext().getResources();
+
+        String[] names = res.getStringArray(R.array.Items);
+        String[] prices = res.getStringArray(R.array.Prices);
+        String[] descriptions = res.getStringArray(R.array.Descriptions);
+
+
+        RecyclerView items = findViewById(R.id.itemsRecyclerView);
+        items.setLayoutManager(new LinearLayoutManager(this));
+        items.setAdapter(new ListAdapter(names, prices, descriptions));
+
     }
 }
