@@ -126,4 +126,60 @@ public class Sender {
             exception.printStackTrace();
         }
     }
+
+    public boolean verifyUser(String user) throws SMTPProtocolException {
+        final String crlf = "\r\n";
+        boolean result = false;
+        try (Socket socket = new Socket(ADDRESS, SMTP_PORT)) { // Address and port are hardcoded since the app is only meant to be used with a local mail server
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.US_ASCII), true); // SMTP requires that the commands sent using it are in US-ASCII
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+            socket.setSoTimeout(INITIAL_TIMEOUT);
+            String reply = reader.readLine();
+            System.out.println("S: " + reply);
+            if (!reply.startsWith("220")) {
+                throw new SMTPProtocolException(reply);
+            }
+
+            String message = "EHLO " + socket.getLocalAddress().getHostAddress() + crlf;
+            writer.printf(message);
+            System.out.print("C: " + message);
+
+            socket.setSoTimeout(EHLO_HELO_TIMEOUT);
+            reply = reader.readLine();
+            System.out.println("S: " + reply);
+            if (reply.startsWith("250")) {
+                while (reply.startsWith("250-")) { // In multiline replies every line starts with the code and a dash except the last one which starts with the code and a space character
+                    reply = reader.readLine();
+                    System.out.println("S: " + reply);
+                }
+            } else { // Fallback to HELO if EHLO isn't supported for the initial handshake
+                message = "HELO " + socket.getLocalAddress().getHostAddress() + crlf;
+                writer.printf(message);
+                System.out.print("C: " + message);
+                reply = reader.readLine();
+                if (!reply.startsWith("250")) {
+                    throw new SMTPProtocolException(reply);
+                }
+            }
+
+            message = "VRFY " + user + crlf;
+            writer.printf(message);
+            System.out.print("C: " + message);
+            socket.setSoTimeout(VRFY_TIMEOUT);
+            reply = reader.readLine();
+            System.out.println("S: " + reply);
+            result = reply.startsWith("250") || reply.startsWith("251") || reply.startsWith("252");
+
+            message = "QUIT" + crlf;
+            writer.printf(message);
+            System.out.print("C: " + message);
+            socket.setSoTimeout(QUIT_TIMEOUT);
+            reply = reader.readLine();
+            System.out.println("S: " + reply);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return result;
+    }
 }
