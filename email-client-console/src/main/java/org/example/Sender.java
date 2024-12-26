@@ -8,8 +8,6 @@ public class Sender {
     final private int SMTP_PORT = 25;
     final private String ADDRESS = "localhost"; // The client is only expected to work with a single mail server, hence the hardcoded address
 
-    static private Sender sender;
-
     // Socket timeouts in java are measured in milliseconds
     // These socket timeouts are based on values provided in the RFC
 
@@ -28,12 +26,10 @@ public class Sender {
 
     public int QUIT_TIMEOUT = 5000; // Again, no provided value in RFC. Since were closing the connection anyway might as well not have a lengthy timeout
 
+    static private Sender sender;
     private Sender() {}
-
     public static Sender getInstance() {
-        if (sender == null) {
-            sender = new Sender();
-        }
+        if (sender == null) sender = new Sender();
         return sender;
     }
 
