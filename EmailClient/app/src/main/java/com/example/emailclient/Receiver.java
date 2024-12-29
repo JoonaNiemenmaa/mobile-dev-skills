@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Receiver extends Thread {
 
-    final private String ADDRESS = "localhost"; // Again, address is hardcoded since the program is only meant to work with a local mail server
+    final private String ADDRESS = "10.0.2.2"; // Again, address is hardcoded since the program is only meant to work with a local mail server
     final private int IMAP_PORT = 3143;
 
     final private String name;

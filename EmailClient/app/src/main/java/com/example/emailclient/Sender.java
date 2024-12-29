@@ -7,7 +7,8 @@ import java.util.ArrayList;
 
 public class Sender {
     final private int SMTP_PORT = 3025;
-    final private String ADDRESS = "localhost"; // The client is only expected to work with a single mail server, hence the hardcoded address
+    final private String ADDRESS = "10.0.2.2"; // The client is only expected to work with a single mail server, hence the hardcoded address
+                                               // In the android studio emulator the address '10.0.2.2' refers to the developers own machine's loopback address
 
     // Socket timeouts in java are measured in milliseconds
     // These socket timeouts are based on values provided in the RFC

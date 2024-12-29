@@ -21,7 +21,6 @@ public class Email {
         this.content = this.content + "Subject: " + subject + "\r\n";
         this.content = this.content + "\r\n";
         this.content = this.content + text;
-        System.out.println(this.content);
     }
 
     public String getSender() {
