@@ -54,8 +54,8 @@ public class Receiver extends Thread {
                 throw new IMAPProtocolException(response);
             }
             ArrayList<String> capabilities = new ArrayList<>(Arrays.asList(response.split(" ")));
-            capabilities.removeFirst(); // First two items in response are not listed capabilities, but rather the command name and untagged response code
-            capabilities.removeFirst();
+            capabilities.remove(0); // First two items in response are not listed capabilities, but rather the command name and untagged response code
+            capabilities.remove(0);
             if (!capabilities.contains("IMAP4rev1")) {
                 throw new IMAPProtocolException("Server does not support IMAP4rev1");
             }
@@ -147,7 +147,7 @@ public class Receiver extends Thread {
                     while (action_queue.isEmpty()) {
                         Thread.sleep(100);
                     }
-                    String command = action_queue.removeFirst();
+                    String command = action_queue.remove(0);
                     String code = command.split(" ")[0];
 
                     if (command.split(" ")[1].equals("LOGOUT")) break;
