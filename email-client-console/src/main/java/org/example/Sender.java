@@ -3,9 +3,10 @@ package org.example;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class Sender {
-    final private int SMTP_PORT = 25;
+    final private int SMTP_PORT = 3025;
     final private String ADDRESS = "localhost"; // The client is only expected to work with a single mail server, hence the hardcoded address
 
     // Socket timeouts in java are measured in milliseconds
@@ -53,9 +54,11 @@ public class Sender {
             socket.setSoTimeout(EHLO_HELO_TIMEOUT);
             reply = reader.readLine();
             System.out.println("S: " + reply);
+            ArrayList<String> capabilities = new ArrayList<>();
             if (reply.startsWith("250")) {
                 while (reply.startsWith("250-")) { // In multiline replies every line starts with the code and a dash except the last one which starts with the code and a space character
                     reply = reader.readLine();
+                    capabilities.add(reply.substring(4));
                     System.out.println("S: " + reply);
                 }
             } else { // Fallback to HELO if EHLO isn't supported for the initial handshake
@@ -68,6 +71,8 @@ public class Sender {
                 }
             }
 
+
+
             message = "MAIL FROM:<" + email.getSender() + ">" + crlf;
             writer.printf(message);
             System.out.print("C: " + message);
@@ -79,7 +84,7 @@ public class Sender {
             }
 
             for (String recipient : email.getRecipients()) {
-                message = "RCPT TO:<" + recipient + ">" + crlf;
+                message = "RCPT TO:<" + recipient.split("@")[0] + ">" + crlf;
                 writer.printf(message);
                 System.out.print("C: " + message);
                 socket.setSoTimeout(RCPT_TO_TIMEOUT);
