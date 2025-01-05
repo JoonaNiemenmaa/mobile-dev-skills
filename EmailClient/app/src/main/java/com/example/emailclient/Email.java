@@ -1,38 +1,51 @@
 package com.example.emailclient;
 
-public class Email {
+import java.io.Serializable;
+import java.util.ArrayList;
 
-    final private String sender;
-    final private String[] recipients;
-    private String content;
+public class Email implements Serializable {
+    private String sender = "";
+    private String recipients = "";
+    private String subject = "";
+    private String text_content = "";
 
-    public Email(String sender, String[] recipients, String subject, String text) {
-
+    public Email() {}
+    public Email(String sender, String recipients, String subject, String text_content) {
         this.sender = sender;
         this.recipients = recipients;
-
-        this.content = "From: <" + sender + ">\r\n";
-        this.content = this.content + "To: ";
-        for (int i = 0; i < recipients.length; i++) {
-            if (i + 1 == recipients.length) this.content = this.content + "<" + recipients[i] + ">";
-            else this.content = this.content + "<" + recipients[i] + ">, ";
-        }
-        this.content = this.content + "\r\n";
-        this.content = this.content + "Subject: " + subject + "\r\n";
-        this.content = this.content + "\r\n";
-        this.content = this.content + text;
+        this.subject = subject;
+        this.text_content = text_content;
     }
 
     public String getSender() {
         return sender;
     }
 
-    public String[] getRecipients() {
+    public String getRecipients() {
         return recipients;
     }
 
-    public String getContent() {
-        return content;
+    public String getSubject() {
+        return subject;
     }
 
+    public String getTextContent() {
+        return text_content;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public void setRecipients(String recipients) {
+        this.recipients = recipients;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public void setTextContent(String text_content) {
+        this.text_content = text_content;
+    }
 }

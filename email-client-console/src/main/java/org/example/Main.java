@@ -15,8 +15,8 @@ public class Main {
         } catch (SMTPProtocolException e) {
             throw new RuntimeException(e);
         }
-        receiver.start();
-        receiver.addAction("body FETCH 1 BODY[TEXT]");
+        //receiver.start();
+        //receiver.addAction("body FETCH 1 BODY[TEXT]");
 
     }
 }

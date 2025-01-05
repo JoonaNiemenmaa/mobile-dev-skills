@@ -35,7 +35,7 @@ public class Sender {
         return sender;
     }
 
-    public void sendMail(Email email) throws SMTPProtocolException {
+    public void sendMail(SMTPMail email) throws SMTPProtocolException {
         final String crlf = "\r\n";
         try (Socket socket = new Socket(ADDRESS, SMTP_PORT)) { // Address and port are hardcoded since the app is only meant to be used with a local mail server
             PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), StandardCharsets.US_ASCII), true); // SMTP requires that the commands sent using it are in US-ASCII
