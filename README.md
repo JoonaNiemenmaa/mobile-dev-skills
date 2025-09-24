@@ -2,6 +2,8 @@
 
 The project is an Android application that can send and receive emails via a self made implementation of SMTP and IMAP. I'm retaking the course since I forgot to finish the project last semester and ran out of time hence the dates from last year in the learning diary.
 
+The excercise projects are found in `excercises/` and the actual project can be found in `project/EmailClient/`.
+
 ## How to run this thing
 
 In addition to running the Android application itself this project also needs a mail server capable of SMTP and IMAP to be running on your system. For this purpose we'll use GreenMail mail server which can be downloaded from the following link:
@@ -20,7 +22,7 @@ java -Dgreenmail.setup.test.all -Dgreenmail.users=joona:1234,tomi:4321 -jar gree
 
 This sets up a mail server with two users joona and tomi with passwords 1234 and 4321 respectively.
 
-Now just run the Android Application (it's project/EmailClient) and log in with one of the user accounts to start sending / receiving mail.
+Now just run the Android Application (it's `project/EmailClient`) and log in with one of the user accounts to start sending / receiving mail.
 
 # Demo video
 
