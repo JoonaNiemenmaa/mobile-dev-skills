@@ -141,4 +141,6 @@ public class Receiver {
 
     }
 
+    public String getUserAddress() { return user_address; }
+
 }

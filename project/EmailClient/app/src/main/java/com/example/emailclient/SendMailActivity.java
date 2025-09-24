@@ -39,7 +39,7 @@ public class SendMailActivity extends AppCompatActivity {
                         recipient
                 };
 
-                SMTPMail mail = new SMTPMail("test1", recipients, subject, text_content);
+                SMTPMail mail = new SMTPMail(Receiver.getInstance().getUserAddress(), recipients, subject, text_content);
 
                 Executor executor = Executors.newSingleThreadExecutor();
                 executor.execute(new Runnable() {
